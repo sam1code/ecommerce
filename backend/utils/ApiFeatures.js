@@ -1,19 +1,20 @@
-export default class ApiFeatures {
-  constructor(querry, querryStr) {
-    this.querry = querry;
-    this.querryStr = querryStr;
+class ApiFeatures {
+  constructor(query, queryStr) {
+    this.query = query;
+    this.queryStr = queryStr;
   }
   search() {
-    const keyword = this.querryStr.keyword
+    const keyword = this.queryStr.keyword
       ? {
           name: {
-            $regex: this.querryStr.keyword,
-            $option: "i",
+            $regex: this.queryStr.keyword,
+            $options: "i",
           },
         }
       : {};
     console.log(keyword);
-    this.querry.find({ ...keyword });
+    this.query = this.query.find({ ...keyword });
     return this;
   }
 }
+export default ApiFeatures;

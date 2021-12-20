@@ -1,5 +1,6 @@
 import catchAsyncError from "../middlewares/CatchAsyncErrors.js";
 import ProductModel from "../models/productModels.js";
+import ApiFeatures from "../utils/ApiFeatures.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 
 export const products = {
@@ -13,7 +14,8 @@ export const products = {
   }),
   // get all products
   getAllProducts: catchAsyncError(async (req, res) => {
-    const products = await ProductModel.find();
+    const apiFeature = new ApiFeatures(ProductModel.find(), req.query).search();
+    const products = await apiFeature.query;
     res.status(200).json({ success: true, products });
   }),
   //Get product details
